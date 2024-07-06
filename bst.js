@@ -16,54 +16,81 @@ class BST {
   }
 
   insert(value) {
-    const newNode = new Node(value);
+    const node = new Node(value);
     if (this.isEmpty()) {
-      this.root = newNode;
+      this.root = node;
     } else {
-      this.insertAgain(this.root, newNode);
+      this.insertChild(this.root, node);
     }
   }
 
-  insertAgain(root, newNode) {
-    if (newNode.value < root.value) {
+  insertChild(root, node) {
+    if (node.value < root.value) {
       if (root.left == null) {
-        root.left = newNode;
+        root.left = node;
       } else {
-        this.insertAgain(root.left, newNode);
+        this.insertChild(root.left, node);
       }
     } else {
       if (root.right == null) {
-        root.right = newNode;
+        root.right = node;
       } else {
-        this.insertAgain(root.right, newNode);
+        this.insertChild(root.right, node);
       }
     }
-  }
-
-  display() {
-    console.log(this.root);
   }
 
   search(root, value) {
     if (!root) return false;
-    if (root.value === value) return true;
+    if (root.value == value) return true;
     if (value < root.value) {
       return this.search(root.left, value);
     } else {
       return this.search(root.right, value);
     }
   }
+
+  preOrder(root) {
+    if (!root) return false;
+    
+    console.log("PRE-ORDER",root.value);
+    this.preOrder(root.left);
+    this.preOrder(root.right);
+  }
+
+  inOrder(root) {
+    if (!root) return false;
+    this.inOrder(root.left);
+    console.log("IN-ORDER",root.value);
+    this.inOrder(root.right);
+  }
+
+  postOrder(root) {
+    if (!root) return false;
+    this.postOrder(root.left);
+    this.postOrder(root.right);
+    console.log("POST_ORDER",root.value);
+  }
+
+  display() {
+    console.log(this.root);
+  }
+
+  //pre --> root,left,right.
+  //in --> left, root, right.
+  //post --> left,right, root.
 }
 
 const bst = new BST();
-console.log(bst.isEmpty());
-bst.insert(5);
-bst.insert(15);
-bst.insert(6);
-bst.insert(8);
-bst.insert(3);
+//console.log("is tree empty? ", bst.isEmpty());
 bst.insert(10);
-bst.insert(4);
-bst.display();
-console.log(bst.isEmpty());
-console.log(bst.search(bst.root, 67));
+bst.insert(5);
+bst.insert(2);
+bst.insert(9);
+bst.insert(19);
+bst.insert(15);
+
+console.log("is tree empty? ", bst.isEmpty());
+console.log(bst.search(bst.root, 2));
+//bst.display();
+bst.inOrder(bst.root);
