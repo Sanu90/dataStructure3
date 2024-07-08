@@ -9,6 +9,7 @@ class Node {
 class BST {
   constructor() {
     this.root = null;
+    let array = [];
   }
 
   isEmpty() {
@@ -52,8 +53,8 @@ class BST {
 
   preOrder(root) {
     if (!root) return false;
-    
-    console.log("PRE-ORDER",root.value);
+
+    console.log("PRE-ORDER", root.value);
     this.preOrder(root.left);
     this.preOrder(root.right);
   }
@@ -61,7 +62,8 @@ class BST {
   inOrder(root) {
     if (!root) return false;
     this.inOrder(root.left);
-    console.log("IN-ORDER",root.value);
+    console.log(root.value);
+    //array.push(root.value);
     this.inOrder(root.right);
   }
 
@@ -69,7 +71,7 @@ class BST {
     if (!root) return false;
     this.postOrder(root.left);
     this.postOrder(root.right);
-    console.log("POST_ORDER",root.value);
+    console.log("POST_ORDER", root.value);
   }
 
   display() {
@@ -79,6 +81,22 @@ class BST {
   //pre --> root,left,right.
   //in --> left, root, right.
   //post --> left,right, root.
+
+  breadthFS() {
+    let queue = [];
+    queue.push(this.root);
+
+    while (queue.length) {
+      let curr = queue.shift();
+      console.log(curr.value);
+      if (curr.left) {
+        queue.push(curr.left);
+      }
+      if (curr.right) {
+        queue.push(curr.right);
+      }
+    }
+  }
 }
 
 const bst = new BST();
@@ -93,4 +111,5 @@ bst.insert(15);
 console.log("is tree empty? ", bst.isEmpty());
 console.log(bst.search(bst.root, 2));
 //bst.display();
-bst.inOrder(bst.root);
+//bst.inOrder(bst.root);
+bst.breadthFS()
