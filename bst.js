@@ -9,7 +9,6 @@ class Node {
 class BST {
   constructor() {
     this.root = null;
-    let array = [];
   }
 
   isEmpty() {
@@ -85,7 +84,6 @@ class BST {
   breadthFS() {
     let queue = [];
     queue.push(this.root);
-
     while (queue.length) {
       let curr = queue.shift();
       console.log(curr.value);
@@ -95,6 +93,22 @@ class BST {
       if (curr.right) {
         queue.push(curr.right);
       }
+    }
+  }
+
+  min(root) {
+    if (!root.left) {
+      return root.value;
+    } else {
+      return this.min(root.left);
+    }
+  }
+
+  max(root) {
+    if (!root.right) {
+      return root.value;
+    } else {
+      return this.max(root.right);
     }
   }
 }
@@ -107,9 +121,11 @@ bst.insert(2);
 bst.insert(9);
 bst.insert(19);
 bst.insert(15);
-
 console.log("is tree empty? ", bst.isEmpty());
 console.log(bst.search(bst.root, 2));
 //bst.display();
 //bst.inOrder(bst.root);
-bst.breadthFS()
+bst.breadthFS();
+
+console.log(bst.min(bst.root));
+console.log(bst.max(bst.root));
