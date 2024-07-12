@@ -10,15 +10,12 @@ class binaryTree {
   constructor() {
     this.root = null;
   }
-  isBST(node = this.root, min = null, max = null) {
-    if (node === null) {
+
+  isBST(node = this.root, min = -Infinity, max = Infinity) {
+    if (!node) {
       return true;
     }
-
-    if (
-      (min != null && node.value <= min) ||
-      (max != null && node.value >= max)
-    ) {
+    if (node.value < min || node.value > max) {
       return false;
     }
 
@@ -31,12 +28,7 @@ class binaryTree {
 
 const tree = new binaryTree();
 tree.root = new Node(10);
-tree.root.left = new Node(4);
-tree.root.right = new Node(17);
-tree.root.left.left = new Node(1);
-tree.root.left.right = new Node(5);
-tree.root.right.left = new Node(15);
-tree.root.right.right = new Node(18);
-//tree.root.right.right.left = new Node(100);
+tree.root.left = new Node(17);
+tree.root.right = new Node(12);
 
 console.log(tree.isBST());
